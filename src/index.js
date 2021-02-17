@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 import { BaseCSS, GridThemeProvider } from 'styled-bootstrap-grid';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-import baseApi from './api/base.api';
+import baseApi from './apis/base.api';
 import { styledTheme } from './theme/theme';
 import { Routes } from './routes/routes';
 import { clearToken, getToken } from './services/storages/userStorage';
