@@ -2,7 +2,21 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import React from 'react';
 
 import PrivateRoute from './PrivateRoute';
-import ListRoutes, { Pages } from './constants';
+import { Pages } from './constants';
+import HomeScreen from '../pages/home/home';
+import LoginScreen from '../pages/login/login';
+
+const ListRoutes = [
+  {
+    path: Pages.home,
+    component: HomeScreen,
+    isPrivate: true,
+  },
+  {
+    path: Pages.login,
+    component: LoginScreen,
+  },
+];
 
 export const Routes = () => (
   <Switch>

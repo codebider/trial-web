@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Col, Container, Form, Input, Row, FormGroup, Label, Button } from 'reactstrap';
 import { ErrorMessage, Formik } from 'formik';
 import apis from '../../apis';
 import { setToken, setUser } from '../../services/storages/userStorage';
 import { LoginSchema } from './login.validator';
+import { Pages } from '../../routes/constants';
 
 const Login = () => {
+  const history = useHistory();
   const [error, setError] = useState();
   const submit = async (values) => {
     return apis.auth
@@ -13,6 +16,7 @@ const Login = () => {
       .then((value) => {
         setToken(value.token);
         setUser({ fullName: value.fullName });
+        history.push(Pages.home);
       })
       .catch((error_) => {
         setError(error_.message);
