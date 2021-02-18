@@ -6,6 +6,7 @@ import { Pages } from './constants';
 import HomeScreen from '../pages/home/home';
 import LoginScreen from '../pages/login/login';
 import RegisterScreen from '../pages/register/register';
+import DocumentDetailScreen from '../pages/document-detail/documentDetail';
 
 const ListRoutes = [
   {
@@ -20,6 +21,10 @@ const ListRoutes = [
   {
     path: Pages.register,
     component: RegisterScreen,
+  },
+  {
+    path: Pages.documentDetail,
+    component: DocumentDetailScreen,
   },
 ];
 

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Container, Row, Button } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
 import apis from '../../apis';
+import { goTo } from '../../routes/utils';
+import { Pages } from '../../routes/constants';
 
 const Home = () => {
+  const history = useHistory();
   const [documents, setDocuments] = useState();
 
   useEffect(() => {
@@ -49,7 +53,12 @@ const Home = () => {
                   <td>{item.npwpNumber}</td>
                   <td>{item.passportNumber}</td>
                   <td>
-                    <Button size="sm" color="primary" outline>
+                    <Button
+                      size="sm"
+                      color="primary"
+                      outline
+                      onClick={() => history.push(goTo(Pages.documentDetail, { id: item.id }))}
+                    >
                       View
                     </Button>
                     <Button size="sm" color="secondary" outline>
