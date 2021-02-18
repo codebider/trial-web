@@ -6,6 +6,7 @@ import apis from '../../apis';
 import { setToken, setUser } from '../../services/storages/userStorage';
 import { LoginSchema } from './login.validator';
 import { Pages } from '../../routes/constants';
+import baseApi from '../../apis/base.api';
 
 const Login = () => {
   const history = useHistory();
@@ -15,6 +16,7 @@ const Login = () => {
       .login(values.username, values.password)
       .then((value) => {
         setToken(value.token);
+        baseApi.setToken(value.token);
         setUser({ fullName: value.fullName });
         history.push(Pages.home);
       })
