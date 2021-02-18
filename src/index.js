@@ -8,9 +8,11 @@ import { BaseCSS, GridThemeProvider } from 'styled-bootstrap-grid';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 import baseApi from './apis/base.api';
+import './theme/global.css';
 import { styledTheme } from './theme/theme';
 import { Routes } from './routes/routes';
 import { clearToken, getToken } from './services/storages/userStorage';
+import Header from './components/header';
 
 const history = createBrowserHistory();
 
@@ -22,6 +24,7 @@ ReactDOM.render(
     <GridThemeProvider>
       <Router history={history}>
         <BaseCSS />
+        <Header />
         <Routes />
       </Router>
     </GridThemeProvider>

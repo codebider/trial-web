@@ -44,7 +44,7 @@ const Register = () => {
               /* and other goodies */
             }) => (
               <Form>
-                {error && <small>Error: {error}</small>}
+                {error && <small className="error">Error: {error}</small>}
                 <FormGroup>
                   <Label for="fullName">Full name</Label>
                   <Input
@@ -56,7 +56,7 @@ const Register = () => {
                     placeholder="fullName"
                     value={values.fullName}
                   />
-                  <small>
+                  <small className="error">
                     <ErrorMessage name="fullName" />
                   </small>
                 </FormGroup>
@@ -71,7 +71,7 @@ const Register = () => {
                     placeholder="username"
                     value={values.username}
                   />
-                  <small>
+                  <small className="error">
                     <ErrorMessage name="username" />
                   </small>
                 </FormGroup>
@@ -86,7 +86,7 @@ const Register = () => {
                     placeholder="password"
                     value={values.password}
                   />
-                  <small>
+                  <small className="error">
                     <ErrorMessage name="password" />
                   </small>
                 </FormGroup>

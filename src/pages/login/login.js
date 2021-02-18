@@ -60,7 +60,7 @@ const Login = () => {
                     placeholder="username"
                     value={values.username}
                   />
-                  <small>
+                  <small className="error">
                     <ErrorMessage name="username" />
                   </small>
                 </FormGroup>
@@ -75,7 +75,7 @@ const Login = () => {
                     placeholder="password"
                     value={values.password}
                   />
-                  <small>
+                  <small className="error">
                     <ErrorMessage name="password" />
                   </small>
                 </FormGroup>

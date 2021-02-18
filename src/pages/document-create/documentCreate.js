@@ -57,7 +57,7 @@ const DocumentCreate = () => {
                       placeholder={field.key}
                       value={values[field.key]}
                     />
-                    <small>
+                    <small className="error">
                       <ErrorMessage name={field.key} />
                     </small>
                   </FormGroup>

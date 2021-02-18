@@ -1,0 +1,42 @@
+html {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: #999999 white; /* thumb and track color */
+}
+
+::-webkit-scrollbar {
+  width: 7.5px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  background: #999999;
+  border-right: 1px solid white;
+  border-radius: 5px;
+}
+
+.body {
+  background-color: #f4f9f6;
+  margin: 0px;
+  font-family: 'Roboto', sans-serif;
+  z-index: 0;
+  position: relative;
+}
+
+@media (max-width: 576px) {
+  .body {
+    padding-top: 76px;
+  }
+}
+
+.container{
+  padding-top: 20px;
+}
+
+.error {
+  color: red;
+}
