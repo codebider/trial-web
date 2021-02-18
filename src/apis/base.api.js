@@ -27,8 +27,13 @@ class BaseApi {
         // Do something with response data
         return response.data;
       },
-      function (error) {
+      (error) => {
         const data = get(error, 'response.data', {});
+        const status = get(error, ['status']) || get(error, ['response', 'status']);
+        if (status === 401) {
+          this.clearSession();
+          window.location.href = '/login';
+        }
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
         return Promise.reject(data);
