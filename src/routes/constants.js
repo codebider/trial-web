@@ -3,4 +3,6 @@ export const Pages = {
   login: '/login',
   register: '/register',
   documentDetail: '/documents/:id',
+  documentEdit: '/documents/:id/edit',
+  documentCreate: '/documents/add-new',
 };

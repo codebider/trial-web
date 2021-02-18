@@ -20,7 +20,12 @@ const Home = () => {
       <h1>Home</h1>
       <Row>
         <Container className="text-right">
-          <Button size="sm" color="primary" outline>
+          <Button
+            size="sm"
+            color="primary"
+            outline
+            onClick={() => history.push(Pages.documentCreate)}
+          >
             Add new
           </Button>
         </Container>
@@ -61,7 +66,12 @@ const Home = () => {
                     >
                       View
                     </Button>
-                    <Button size="sm" color="secondary" outline>
+                    <Button
+                      size="sm"
+                      color="secondary"
+                      outline
+                      onClick={() => history.push(goTo(Pages.documentEdit, { id: item.id }))}
+                    >
                       Edit
                     </Button>
                     <Button size="sm" color="danger" outline>

@@ -7,6 +7,8 @@ import HomeScreen from '../pages/home/home';
 import LoginScreen from '../pages/login/login';
 import RegisterScreen from '../pages/register/register';
 import DocumentDetailScreen from '../pages/document-detail/documentDetail';
+import DocumentEditScreen from '../pages/document-edit/documentEdit';
+import DocumentCreateScreen from '../pages/document-create/documentCreate';
 
 const ListRoutes = [
   {
@@ -23,8 +25,19 @@ const ListRoutes = [
     component: RegisterScreen,
   },
   {
+    path: Pages.documentCreate,
+    component: DocumentCreateScreen,
+    isPrivate: true,
+  },
+  {
     path: Pages.documentDetail,
     component: DocumentDetailScreen,
+    isPrivate: true,
+  },
+  {
+    path: Pages.documentEdit,
+    component: DocumentEditScreen,
+    isPrivate: true,
   },
 ];
 
