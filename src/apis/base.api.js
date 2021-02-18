@@ -68,7 +68,7 @@ class BaseApi {
   }
 
   setToken(token) {
-    this.setDefaultHeader('Token', token);
+    this.setDefaultHeader('Authorization', `Bearer ${token}`);
   }
 
   setDefaultHeaders(headers) {

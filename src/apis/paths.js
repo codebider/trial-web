@@ -5,4 +5,7 @@ export const paths = {
   register() {
     return '/register';
   },
+  listDocuments() {
+    return '/documents';
+  },
 };
