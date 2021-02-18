@@ -3,20 +3,18 @@ import { Link, useHistory } from 'react-router-dom';
 import { Col, Container, Form, Input, Row, FormGroup, Label, Button } from 'reactstrap';
 import { ErrorMessage, Formik } from 'formik';
 import apis from '../../apis';
-import { setToken, setUser } from '../../services/storages/userStorage';
-import { LoginSchema } from './login.validator';
+import { LoginSchema } from './register.validator';
 import { Pages } from '../../routes/constants';
 
-const Login = () => {
+const Register = () => {
   const history = useHistory();
   const [error, setError] = useState();
   const submit = async (values) => {
     return apis.auth
-      .login(values.username, values.password)
-      .then((value) => {
-        setToken(value.token);
-        setUser({ fullName: value.fullName });
-        history.push(Pages.home);
+      .register(values)
+      .then(() => {
+        alert('Success');
+        history.push(Pages.login);
       })
       .catch((error_) => {
         setError(error_.message);
@@ -27,9 +25,9 @@ const Login = () => {
     <Container>
       <Row>
         <Col>
-          <h2>Login</h2>
+          <h2>Register</h2>
           <Formik
-            initialValues={{ username: '', password: '' }}
+            initialValues={{ username: '', password: '', fullName: '' }}
             validationSchema={LoginSchema}
             onSubmit={(values, { setSubmitting }) => {
               submit(values).finally(() => {
@@ -47,6 +45,21 @@ const Login = () => {
             }) => (
               <Form>
                 {error && <small>Error: {error}</small>}
+                <FormGroup>
+                  <Label for="fullName">Full name</Label>
+                  <Input
+                    type="text"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="fullName"
+                    id="fullName"
+                    placeholder="fullName"
+                    value={values.fullName}
+                  />
+                  <small>
+                    <ErrorMessage name="fullName" />
+                  </small>
+                </FormGroup>
                 <FormGroup>
                   <Label for="username">Username</Label>
                   <Input
@@ -78,7 +91,7 @@ const Login = () => {
                   </small>
                 </FormGroup>
                 <FormGroup className="text-right">
-                  <Link to={Pages.register}>Register?</Link>
+                  <Link to={Pages.login}>Login?</Link>
                 </FormGroup>
                 <Button onClick={handleSubmit} disabled={isSubmitting}>
                   Submit
@@ -92,4 +105,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import get from 'lodash/get';
-import isNil from 'lodash/isNil';
 
 const UPLOAD_HEADER = {
   accept: 'application/json',
@@ -21,6 +20,20 @@ class BaseApi {
     if (baseURL) {
       this.client.defaults.baseURL = baseURL;
     }
+
+    this.client.interceptors.response.use(
+      function (response) {
+        // Any status code that lie within the range of 2xx cause this function to trigger
+        // Do something with response data
+        return response.data;
+      },
+      function (error) {
+        const data = get(error, 'response.data', {});
+        // Any status codes that falls outside the range of 2xx cause this function to trigger
+        // Do something with response error
+        return Promise.reject(data);
+      },
+    );
   }
 
   static getInstance() {
@@ -55,7 +68,7 @@ class BaseApi {
   }
 
   setToken(token) {
-    this.setDefaultHeader('Token', token);
+    this.setDefaultHeader('Authorization', `Bearer ${token}`);
   }
 
   setDefaultHeaders(headers) {
@@ -68,9 +81,7 @@ class BaseApi {
   async request(opts) {
     const requestOpts = BaseApi.preRequest(opts);
 
-    return this.client(requestOpts)
-      .then((response) => BaseApi.preResponse(response, requestOpts))
-      .catch((error) => BaseApi.preResponse(error, requestOpts));
+    return this.client(requestOpts);
   }
 
   async delete(uri, params, headers) {
@@ -101,66 +112,13 @@ class BaseApi {
   }
 
   async upload(uri, file) {
-    return this.client
-      .post(uri, file, { headers: UPLOAD_HEADER })
-      .then((response) => BaseApi.preResponse(response, {}))
-      .catch((error) => BaseApi.preResponse(error, {}));
+    return this.client.post(uri, file, { headers: UPLOAD_HEADER });
   }
 
   static preRequest(opts) {
     return {
       ...opts,
     };
-  }
-
-  static processError(rawResponse) {
-    const {
-      response: { data },
-    } = rawResponse;
-    const { error, message } = data;
-
-    if (error) {
-      throw Object.assign(error, { data: message });
-    }
-    throw message;
-  }
-
-  static preResponse(rawResponse) {
-    if (rawResponse.response || rawResponse.code) {
-      BaseApi.processError(rawResponse);
-    }
-
-    const status = get(rawResponse, ['status']) || get(rawResponse, ['response', 'status']);
-    let data;
-    let error;
-
-    switch (status) {
-      case 200:
-      case 201:
-        data = get(rawResponse, ['data', 'data']) || get(rawResponse, ['data']);
-        break;
-      case 400:
-        error = '400 Bad Request Error';
-        break;
-      case 401:
-        this.clearSession();
-        error = '401 Unauthorize';
-        break;
-      case 403:
-        error = '403 Forbidden';
-        break;
-      case 404:
-        error = '404 Not Found';
-        break;
-      default:
-        error = 'Unknown Error';
-    }
-
-    if (isNil(error)) return data;
-
-    // eslint-disable-next-line no-console
-    console.error(rawResponse);
-    throw error;
   }
 }
 
