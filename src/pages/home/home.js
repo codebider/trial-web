@@ -4,15 +4,27 @@ import { useHistory } from 'react-router-dom';
 import apis from '../../apis';
 import { goTo } from '../../routes/utils';
 import { Pages } from '../../routes/constants';
+import DeleteModal from './deleteModal';
 
 const Home = () => {
   const history = useHistory();
   const [documents, setDocuments] = useState();
-
-  useEffect(() => {
+  const [deleteDocument, setDeleteDocument] = useState();
+  const loadData = () => {
     apis.document.listDocuments().then((data) => {
       setDocuments(data);
     });
+  };
+
+  const handleDelete = (id) => {
+    apis.document.deleteDocuments(id).then(() => {
+      alert('Delete successful');
+      loadData();
+    });
+  };
+
+  useEffect(() => {
+    loadData();
   }, []);
 
   return (
@@ -74,7 +86,12 @@ const Home = () => {
                     >
                       Edit
                     </Button>
-                    <Button size="sm" color="danger" outline>
+                    <Button
+                      size="sm"
+                      color="danger"
+                      outline
+                      onClick={() => setDeleteDocument(item)}
+                    >
                       Delete
                     </Button>
                   </td>
@@ -82,6 +99,11 @@ const Home = () => {
               ))}
           </tbody>
         </Table>
+        <DeleteModal
+          document={deleteDocument}
+          onToggle={() => setDeleteDocument()}
+          onYes={handleDelete}
+        />
       </Row>
     </Container>
   );
