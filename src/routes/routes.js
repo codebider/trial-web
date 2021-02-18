@@ -5,6 +5,7 @@ import PrivateRoute from './PrivateRoute';
 import { Pages } from './constants';
 import HomeScreen from '../pages/home/home';
 import LoginScreen from '../pages/login/login';
+import RegisterScreen from '../pages/register/register';
 
 const ListRoutes = [
   {
@@ -15,6 +16,10 @@ const ListRoutes = [
   {
     path: Pages.login,
     component: LoginScreen,
+  },
+  {
+    path: Pages.register,
+    component: RegisterScreen,
   },
 ];
 
