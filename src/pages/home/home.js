@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Container, Row } from 'reactstrap';
+import { Table, Container, Row, Button } from 'reactstrap';
 import apis from '../../apis';
 
 const Home = () => {
@@ -15,6 +15,13 @@ const Home = () => {
     <Container>
       <h1>Home</h1>
       <Row>
+        <Container className="text-right">
+          <Button size="sm" color="primary" outline>
+            Add new
+          </Button>
+        </Container>
+      </Row>
+      <Row>
         <Table>
           <thead>
             <tr>
@@ -26,6 +33,7 @@ const Home = () => {
               <th>KTP Number</th>
               <th>NPWP Number</th>
               <th>Passport Number</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -40,6 +48,17 @@ const Home = () => {
                   <td>{item.ktpNumber}</td>
                   <td>{item.npwpNumber}</td>
                   <td>{item.passportNumber}</td>
+                  <td>
+                    <Button size="sm" color="primary" outline>
+                      View
+                    </Button>
+                    <Button size="sm" color="secondary" outline>
+                      Edit
+                    </Button>
+                    <Button size="sm" color="danger" outline>
+                      Delete
+                    </Button>
+                  </td>
                 </tr>
               ))}
           </tbody>
